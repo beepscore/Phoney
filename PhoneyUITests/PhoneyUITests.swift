@@ -7,10 +7,14 @@
 //
 
 import XCTest
+// import CallKit for CXCall
+import CallKit
 
 class PhoneyUITests: XCTestCase {
 
     let app = XCUIApplication(bundleIdentifier: "com.beepscore.Phoney")
+
+    let expectation = XCTestExpectation(description: "expect call ended")
 
     override func setUp() {
         super.setUp()
@@ -47,7 +51,7 @@ class PhoneyUITests: XCTestCase {
         }
     }
 
-    func testCallTapped() {
+    func xxxxxxxxxtestCallTapped() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 
@@ -58,7 +62,7 @@ class PhoneyUITests: XCTestCase {
 
             // recorded this, but when running in test it threw error
             // https://stackoverflow.com/questions/40403805/dismissing-alert-xcuitest
-            // app.alerts["‭555-1212‬"].buttons["Call"].tap()
+            // app.alerts["555-1212"].buttons["Call"].tap()
 
             acceptPermissionAlert()
 
@@ -87,48 +91,89 @@ class PhoneyUITests: XCTestCase {
                 }
             }
         }
-
-
-        // https://stackoverflow.com/questions/28821722/delaying-function-in-swift
-        //        let nowPlusDelay = DispatchTime.now() + .seconds(20)
-        //        DispatchQueue.main.asyncAfter(deadline: nowPlusDelay, execute: {
-        //            // in Phone app, tap red circular button to end call
-        //            app.buttons["End call"].tap()
-        //        })
     }
-    
+
+    static var providerConfiguration: CXProviderConfiguration {
+
+        let providerConfiguration = CXProviderConfiguration(localizedName: "Hotline")
+
+        providerConfiguration.supportsVideo = false
+        providerConfiguration.maximumCallsPerCallGroup = 1
+        providerConfiguration.supportedHandleTypes = [.phoneNumber]
+
+        return providerConfiguration
+    }
+
+    func callPhoneNumber(app: XCUIApplication, phoneNumberString: String) {
+
+        for digitCharacter in phoneNumberString {
+            app.buttons[String(digitCharacter)].tap()
+        }
+        app.buttons["Call"].tap()
+    }
+
     func testPhoneApp() {
+
+        let callObserver = CXCallObserver()
+        callObserver.setDelegate(self, queue: nil)
+
+        let provider = CXProvider(configuration: type(of: self).providerConfiguration)
+        provider.setDelegate(self, queue: nil)
 
         let phoneApp = XCUIApplication(bundleIdentifier: "com.apple.mobilephone")
         phoneApp.launch()
 
-        let button1 = phoneApp.buttons["1"]
-        let button2 = phoneApp.buttons["2"]
-        let button5 = phoneApp.buttons["5"]
+        callPhoneNumber(app: phoneApp, phoneNumberString: "8008693557")
 
-        // call phone number
-        button5.tap()
-        button5.tap()
-        button5.tap()
-        button1.tap()
-        button2.tap()
-        button1.tap()
-        button2.tap()
-
-        phoneApp.buttons["Call"].tap()
-        print("*** tapped Call button")
-        XCUIDevice.shared.orientation = .faceUp
-
-        print("phoneApp.buttons", phoneApp.buttons)
-        // console shows
-        //warning: could not execute support code to read Objective-C class data in the process. This may reduce the quality of type information available.
-        // phoneApp.buttons <XCUIElementQuery: 0x1c0097f20>
-
-        // test never finds end call button
-        if phoneApp.buttons["End call"].waitForExistence(timeout: 20) {
-            phoneApp.buttons["End call"].tap()
-            print("*** tapped endCall button")
-        }
+        wait(for: [expectation], timeout: 40)
     }
 
 }
+
+extension PhoneyUITests: CXCallObserverDelegate {
+
+    func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
+
+        print("isOutgoing:  \(call.isOutgoing)")
+        print("hasConnected:  \(call.hasConnected)")
+        print("hasEnded: \(call.hasEnded)")
+
+        if call.hasConnected {
+
+            let endCallAction = CXEndCallAction(call: call.uuid)
+            let callTransaction = CXTransaction(action: endCallAction)
+
+            let callController = CXCallController()
+            callController.request(callTransaction) { error in
+                print("*** callController requested end call")
+                if error != nil {
+                    print("*** error \(error.debugDescription)")
+                    // *** error Optional(Error Domain=com.apple.CallKit.error.requesttransaction Code=1 "(null)")
+                    // try to fix by setting info.plist app provides voice over ip services
+                    // https://stackoverflow.com/questions/44534002/what-could-be-cause-for-cxerrorcoderequesttransactionerrorunentitled-error-in-ca
+                }
+            }
+
+            //let phoneApp = XCUIApplication(bundleIdentifier: "com.apple.mobilephone")
+            //let app = XCUIApplication()
+
+            //app.terminate()
+
+        }
+    }
+}
+
+extension PhoneyUITests: CXProviderDelegate {
+    func providerDidReset(_ provider: CXProvider) {
+        // do nothing
+    }
+
+    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
+
+        print("hi from provider perform action!")
+        self.expectation.fulfill()
+        action.fulfill()
+    }
+
+}
+
