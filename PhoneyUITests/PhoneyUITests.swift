@@ -51,9 +51,7 @@ class PhoneyUITests: XCTestCase {
         }
     }
 
-    func xxxxxxxxxtestCallTapped() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testCallTapped() {
 
         let appCallButton = app.buttons["call 555-1212"]
         if appCallButton.waitForExistence(timeout: 5) {
@@ -70,6 +68,9 @@ class PhoneyUITests: XCTestCase {
                 app.swipeUp()
             }
 
+            // I think phoneApp has digits and a green button to start call.
+            // After call starts, phone shows another view with a red end call button
+            // I'm not sure if this is the same app. Seems difficult to find its end Call button.
             // https://stackoverflow.com/questions/9910366/what-is-the-bundle-identifier-of-apples-default-applications-in-ios
             // https://github.com/joeblau/apple-bundle-identifiers
             let phoneApp = XCUIApplication(bundleIdentifier: "com.apple.mobilephone")
