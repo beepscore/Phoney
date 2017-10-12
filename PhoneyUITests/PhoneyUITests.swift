@@ -112,7 +112,7 @@ class PhoneyUITests: XCTestCase {
         app.buttons["Call"].tap()
     }
 
-    func testPhoneApp() {
+    func xxxtestPhoneApp() {
 
         let callObserver = CXCallObserver()
         callObserver.setDelegate(self, queue: nil)
