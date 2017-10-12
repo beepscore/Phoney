@@ -24,6 +24,8 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    /// on device, when user taps button, iOS shows an alert with "Cancel" and "Call"
+    /// tapping call dismisses alert, navigates to phone app, makes call
     @IBAction func callTapped(_ sender: Any) {
         print("callTapped")
 
