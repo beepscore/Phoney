@@ -10,9 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var callButton: UIButton!
+    let phoneNumber = "555-1212"
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        self.callButton.setTitle("call \(phoneNumber)", for: .normal)
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,6 +26,15 @@ class ViewController: UIViewController {
 
     @IBAction func callTapped(_ sender: Any) {
         print("callTapped")
+
+        // https://stackoverflow.com/questions/27259824/calling-a-phone-number-in-swift
+        if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                application.open(phoneCallURL, options: [:], completionHandler: nil)
+            }
+        }
     }
     
 }
