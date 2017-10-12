@@ -69,11 +69,12 @@ class PhoneyUITests: XCTestCase {
             app.tap()
             print("app.debugDescription:\n \(app.debugDescription)")
 
-            let endCallButton = app.buttons["End call"]
-            if endCallButton.waitForExistence(timeout: 40) {
-                endCallButton.tap()
-                print("*** tapped endCallButton")
-            }
+//            let endCallButton = app.buttons["End call"]
+//            if endCallButton.waitForExistence(timeout: 40) {
+//                endCallButton.tap()
+//                print("*** tapped endCallButton")
+//            }
+
         }
     }
 
