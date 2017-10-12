@@ -34,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE8C92911F8F1D6400A15288 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DEA1B2921F8F1C6B00F64C25 /* Phoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA1B2951F8F1C6B00F64C25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEA1B2971F8F1C6B00F64C25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +78,7 @@
 		DEA1B2891F8F1C6B00F64C25 = {
 			isa = PBXGroup;
 			children = (
+				DE8C92911F8F1D6400A15288 /* README.md */,
 				DEA1B2941F8F1C6B00F64C25 /* Phoney */,
 				DEA1B2A91F8F1C6B00F64C25 /* PhoneyTests */,
 				DEA1B2B41F8F1C6B00F64C25 /* PhoneyUITests */,
