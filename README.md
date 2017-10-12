@@ -18,4 +18,15 @@ https://developer.apple.com/documentation/coretelephony/ctcall
 ## CXCallObserver
 CTCallCenter is deprecated in iOS 9.
 
+## Accessibility Switch Control
+might be able to use this
+
+## switch
+Idea:
+Plug microphone or remote control switch into phone microphone jack.
+Write macos program to close a switch. Could use an arduino.
+In XCUITest, issue macos system call to close the switch.
+This will end the phone call and leave the view with the red end call button.
+The phone will navigate to the phone application view with the green start call button.
+Then XCUITest can call application terminate to get back to initial Phoney app?
 
