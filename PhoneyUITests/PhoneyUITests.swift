@@ -27,10 +27,34 @@ class PhoneyUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
+
+    func testCallTapped() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+        // handle alert shown by iOS
+        addUIInterruptionMonitor(withDescription: "555-1212") { (alert) -> Bool in
+            alert.buttons["Call"].tap()
+            return true
+        }
+
+        let app = XCUIApplication()
+        app.buttons["call 555-1212"].tap()
+
+        // recorded this, but when running in test it threw error
+        // https://stackoverflow.com/questions/40403805/dismissing-alert-xcuitest
+        // app.alerts["‭555-1212‬"].buttons["Call"].tap()
+
+        // interact with app to cause handler to fire
+        // https://stackoverflow.com/questions/32148965/xcode-7-ui-testing-how-to-dismiss-a-series-of-system-alerts-in-code?rq=1
+        app.tap()
+
+        // https://stackoverflow.com/questions/28821722/delaying-function-in-swift
+//        let nowPlusDelay = DispatchTime.now() + .seconds(20)
+//        DispatchQueue.main.asyncAfter(deadline: nowPlusDelay, execute: {
+//            // in Phone app, tap red circular button to end call
+//            app.buttons["End call"].tap()
+//        })
     }
     
 }
