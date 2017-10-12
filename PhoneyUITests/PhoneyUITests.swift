@@ -10,9 +10,7 @@ import XCTest
 
 class PhoneyUITests: XCTestCase {
 
-    let app = XCUIApplication()
-    // https://stackoverflow.com/questions/9910366/what-is-the-bundle-identifier-of-apples-default-applications-in-ios
-    let phoneApp = XCUIApplication(bundleIdentifier: "com.apple.mobilephone")
+    let app = XCUIApplication(bundleIdentifier: "com.beepscore.Phoney")
 
     override func setUp() {
         super.setUp()
@@ -33,17 +31,25 @@ class PhoneyUITests: XCTestCase {
         super.tearDown()
     }
 
+    // handle system alert shown by iOS
+    // https://stackoverflow.com/questions/39973904/handler-of-adduiinterruptionmonitor-is-not-called-for-alert-related-to-photos/39976352#39976352
+    // http://masilotti.com/ui-testing-cheat-sheet/
+    private func acceptPermissionAlert() {
+
+        let _ = addUIInterruptionMonitor(withDescription: "call alert") { alert -> Bool in
+
+            if alert.buttons["Call"].exists {
+                alert.buttons["Call"].tap()
+                print("*** tapped alert Call")
+                return true
+            }
+            return false
+        }
+    }
+
     func testCallTapped() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-
-        // handle system alert shown by iOS
-        // http://masilotti.com/ui-testing-cheat-sheet/
-        addUIInterruptionMonitor(withDescription: "555-1212") { (alert) -> Bool in
-            alert.buttons["Call"].tap()
-            print("*** tapped alert Call")
-            return true
-        }
 
         let appCallButton = app.buttons["call 555-1212"]
         if appCallButton.waitForExistence(timeout: 5) {
@@ -54,28 +60,36 @@ class PhoneyUITests: XCTestCase {
             // https://stackoverflow.com/questions/40403805/dismissing-alert-xcuitest
             // app.alerts["‭555-1212‬"].buttons["Call"].tap()
 
+            acceptPermissionAlert()
+
             // interact with app to cause system alert handler to fire
             // https://stackoverflow.com/questions/32148965/xcode-7-ui-testing-how-to-dismiss-a-series-of-system-alerts-in-code?rq=1
-            app.tap()
+            app.swipeUp()
 
-
-            let endCallButton = phoneApp.buttons["End call"]
+            // https://stackoverflow.com/questions/9910366/what-is-the-bundle-identifier-of-apples-default-applications-in-ios
+            // https://github.com/joeblau/apple-bundle-identifiers
+            let phoneApp = XCUIApplication(bundleIdentifier: "com.apple.mobilephone")
             // https://dzone.com/articles/new-xcuitest-features-with-xcode-9-hands-on-explor
-            if endCallButton.waitForExistence(timeout: 20) {
-                endCallButton.tap()
-                print("*** tapped endCallButton")
-            }
+            if phoneApp.waitForExistence(timeout: 20) {
 
+                print("phoneApp", phoneApp)
+                print("phoneApp.buttons", phoneApp.buttons)
+                let endCallButton = phoneApp.buttons["End call"]
+                // https://dzone.com/articles/new-xcuitest-features-with-xcode-9-hands-on-explor
+                if endCallButton.waitForExistence(timeout: 20) {
+                    endCallButton.tap()
+                    print("*** tapped endCallButton")
+                }
+            }
         }
 
 
-
         // https://stackoverflow.com/questions/28821722/delaying-function-in-swift
-//        let nowPlusDelay = DispatchTime.now() + .seconds(20)
-//        DispatchQueue.main.asyncAfter(deadline: nowPlusDelay, execute: {
-//            // in Phone app, tap red circular button to end call
-//            app.buttons["End call"].tap()
-//        })
+        //        let nowPlusDelay = DispatchTime.now() + .seconds(20)
+        //        DispatchQueue.main.asyncAfter(deadline: nowPlusDelay, execute: {
+        //            // in Phone app, tap red circular button to end call
+        //            app.buttons["End call"].tap()
+        //        })
     }
     
 }
