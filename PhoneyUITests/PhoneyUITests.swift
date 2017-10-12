@@ -51,59 +51,10 @@ class PhoneyUITests: XCTestCase {
         }
     }
 
-    ////////////////
-
-    // https://github.com/joemasilotti/JAMTestHelper/blob/master/JAM%20Test%20Helper/JAMTestHelper.swift
-
-    /**
-    * Waits for the default timeout until `element.exists` is true.
-    *
-    * @param element the element you are waiting for
-    * @see waitForElementToNotExist()
-    */
-    func waitForElementToExist(_ element: XCUIElement) {
-        waitForElement(element, toExist: true)
-    }
-
-    /**
-    * Waits for the default timeout until `element.exists` is false.
-    *
-    * @param element the element you are waiting for
-    * @see waitForElementToExist()
-    */
-    func waitForElementToNotExist(_ element: XCUIElement) {
-        waitForElement(element, toExist: false)
-    }
-
-    private func waitForElement(_ element: XCUIElement, toExist: Bool) {
-        let expression = { () -> Bool in
-            return element.exists == toExist
-        }
-        waitFor(expression: expression, failureMessage: "Timed out waiting for element to exist.")
-    }
-
-
-    private func waitFor(expression: () -> Bool, failureMessage: String) {
-        let startTime = Date.timeIntervalSinceReferenceDate
-
-        while (!expression()) {
-            if (NSDate.timeIntervalSinceReferenceDate - startTime > 20.0) {
-                raiseTimeOutException(message: failureMessage)
-            }
-            CFRunLoopRunInMode(CFRunLoopMode.defaultMode, 0.1, Bool(truncating: 0))
-        }
-    }
-
-    private func raiseTimeOutException(message: String) {
-        NSException(name: NSExceptionName(rawValue: "JAMTestHelper Timeout Failure"), reason: message, userInfo: nil).raise()
-    }
-
-    ////////////////
-
     func testCallTapped() {
 
         // don't specify bundle id
-        var app = XCUIApplication()
+        let app = XCUIApplication()
         //print("app.debugDescription:\n \(app.debugDescription)")
 
         let appCallButton = app.buttons["call 555-1212"]
@@ -115,17 +66,7 @@ class PhoneyUITests: XCTestCase {
 
             // interact with app to cause system alert handler to fire
             // https://stackoverflow.com/questions/32148965/xcode-7-ui-testing-how-to-dismiss-a-series-of-system-alerts-in-code?rq=1
-            // avoid potential error
-            // "Application for Target Application 0x1c40af060 is not foreground."
-            if app.state == .runningForeground {
-                app.swipeUp()
-            }
-
-            let _ = app.wait(for: .runningBackground, timeout: 10)
-            app.swipeUp()
-            waitForElementToNotExist(alertCallButton!)
-
-            //app = XCUIApplication()
+            app.tap()
             print("app.debugDescription:\n \(app.debugDescription)")
 
             let endCallButton = app.buttons["End call"]
@@ -155,62 +96,6 @@ class PhoneyUITests: XCTestCase {
         app.buttons["Call"].tap()
     }
 
-    func xxxtestPhoneApp() {
-
-        let callObserver = CXCallObserver()
-        callObserver.setDelegate(self, queue: nil)
-
-        let provider = CXProvider(configuration: type(of: self).providerConfiguration)
-        provider.setDelegate(self, queue: nil)
-
-        let phoneApp = XCUIApplication(bundleIdentifier: "com.apple.mobilephone")
-        phoneApp.launch()
-
-        callPhoneNumber(app: phoneApp, phoneNumberString: "8008693557")
-
-        wait(for: [expectation], timeout: 40)
-    }
-
 }
 
-extension PhoneyUITests: CXCallObserverDelegate {
-
-    func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
-
-        print("isOutgoing:  \(call.isOutgoing)")
-        print("hasConnected:  \(call.hasConnected)")
-        print("hasEnded: \(call.hasEnded)")
-
-        if call.hasConnected {
-
-            let endCallAction = CXEndCallAction(call: call.uuid)
-            let callTransaction = CXTransaction(action: endCallAction)
-
-            let callController = CXCallController()
-            callController.request(callTransaction) { error in
-                print("*** callController requested end call")
-                if error != nil {
-                    print("*** error \(error.debugDescription)")
-                    // *** error Optional(Error Domain=com.apple.CallKit.error.requesttransaction Code=1 "(null)")
-                    // try to fix by setting info.plist app provides voice over ip services
-                    // https://stackoverflow.com/questions/44534002/what-could-be-cause-for-cxerrorcoderequesttransactionerrorunentitled-error-in-ca
-                }
-            }
-        }
-    }
-}
-
-extension PhoneyUITests: CXProviderDelegate {
-    func providerDidReset(_ provider: CXProvider) {
-        // do nothing
-    }
-
-    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
-
-        print("hi from provider perform action!")
-        self.expectation.fulfill()
-        action.fulfill()
-    }
-
-}
 
