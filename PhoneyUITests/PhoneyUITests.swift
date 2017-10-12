@@ -12,9 +12,8 @@ import CallKit
 
 class PhoneyUITests: XCTestCase {
 
-    let app = XCUIApplication(bundleIdentifier: "com.beepscore.Phoney")
-
     let expectation = XCTestExpectation(description: "expect call ended")
+    var alertCallButton: XCUIElement?
 
     override func setUp() {
         super.setUp()
@@ -43,6 +42,7 @@ class PhoneyUITests: XCTestCase {
         let _ = addUIInterruptionMonitor(withDescription: "call alert") { alert -> Bool in
 
             if alert.buttons["Call"].exists {
+                self.alertCallButton = alert.buttons["Call"]
                 alert.buttons["Call"].tap()
                 print("*** tapped alert Call")
                 return true
@@ -51,7 +51,60 @@ class PhoneyUITests: XCTestCase {
         }
     }
 
+    ////////////////
+
+    // https://github.com/joemasilotti/JAMTestHelper/blob/master/JAM%20Test%20Helper/JAMTestHelper.swift
+
+    /**
+    * Waits for the default timeout until `element.exists` is true.
+    *
+    * @param element the element you are waiting for
+    * @see waitForElementToNotExist()
+    */
+    func waitForElementToExist(_ element: XCUIElement) {
+        waitForElement(element, toExist: true)
+    }
+
+    /**
+    * Waits for the default timeout until `element.exists` is false.
+    *
+    * @param element the element you are waiting for
+    * @see waitForElementToExist()
+    */
+    func waitForElementToNotExist(_ element: XCUIElement) {
+        waitForElement(element, toExist: false)
+    }
+
+    private func waitForElement(_ element: XCUIElement, toExist: Bool) {
+        let expression = { () -> Bool in
+            return element.exists == toExist
+        }
+        waitFor(expression: expression, failureMessage: "Timed out waiting for element to exist.")
+    }
+
+
+    private func waitFor(expression: () -> Bool, failureMessage: String) {
+        let startTime = Date.timeIntervalSinceReferenceDate
+
+        while (!expression()) {
+            if (NSDate.timeIntervalSinceReferenceDate - startTime > 20.0) {
+                raiseTimeOutException(message: failureMessage)
+            }
+            CFRunLoopRunInMode(CFRunLoopMode.defaultMode, 0.1, Bool(truncating: 0))
+        }
+    }
+
+    private func raiseTimeOutException(message: String) {
+        NSException(name: NSExceptionName(rawValue: "JAMTestHelper Timeout Failure"), reason: message, userInfo: nil).raise()
+    }
+
+    ////////////////
+
     func testCallTapped() {
+
+        // don't specify bundle id
+        var app = XCUIApplication()
+        //print("app.debugDescription:\n \(app.debugDescription)")
 
         let appCallButton = app.buttons["call 555-1212"]
         if appCallButton.waitForExistence(timeout: 5) {
@@ -68,23 +121,17 @@ class PhoneyUITests: XCTestCase {
                 app.swipeUp()
             }
 
-            // I think phoneApp has digits and a green button to start call.
-            // After call starts, phone shows another view with a red end call button
-            // I'm not sure if this is the same app. Seems difficult to find its end Call button.
-            // https://stackoverflow.com/questions/9910366/what-is-the-bundle-identifier-of-apples-default-applications-in-ios
-            // https://github.com/joeblau/apple-bundle-identifiers
-            let phoneApp = XCUIApplication(bundleIdentifier: "com.apple.mobilephone")
-            // https://dzone.com/articles/new-xcuitest-features-with-xcode-9-hands-on-explor
-            if phoneApp.waitForExistence(timeout: 20) {
+            let _ = app.wait(for: .runningBackground, timeout: 10)
+            app.swipeUp()
+            waitForElementToNotExist(alertCallButton!)
 
-                print("phoneApp", phoneApp)
-                print("phoneApp.buttons", phoneApp.buttons)
-                let endCallButton = phoneApp.buttons["End call"]
-                // https://dzone.com/articles/new-xcuitest-features-with-xcode-9-hands-on-explor
-                if endCallButton.waitForExistence(timeout: 20) {
-                    endCallButton.tap()
-                    print("*** tapped endCallButton")
-                }
+            //app = XCUIApplication()
+            print("app.debugDescription:\n \(app.debugDescription)")
+
+            let endCallButton = app.buttons["End call"]
+            if endCallButton.waitForExistence(timeout: 40) {
+                endCallButton.tap()
+                print("*** tapped endCallButton")
             }
         }
     }
@@ -149,12 +196,6 @@ extension PhoneyUITests: CXCallObserverDelegate {
                     // https://stackoverflow.com/questions/44534002/what-could-be-cause-for-cxerrorcoderequesttransactionerrorunentitled-error-in-ca
                 }
             }
-
-            //let phoneApp = XCUIApplication(bundleIdentifier: "com.apple.mobilephone")
-            //let app = XCUIApplication()
-
-            //app.terminate()
-
         }
     }
 }
