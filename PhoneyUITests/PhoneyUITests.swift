@@ -97,4 +97,38 @@ class PhoneyUITests: XCTestCase {
         //        })
     }
     
+    func testPhoneApp() {
+
+        let phoneApp = XCUIApplication(bundleIdentifier: "com.apple.mobilephone")
+        phoneApp.launch()
+
+        let button1 = phoneApp.buttons["1"]
+        let button2 = phoneApp.buttons["2"]
+        let button5 = phoneApp.buttons["5"]
+
+        // call phone number
+        button5.tap()
+        button5.tap()
+        button5.tap()
+        button1.tap()
+        button2.tap()
+        button1.tap()
+        button2.tap()
+
+        phoneApp.buttons["Call"].tap()
+        print("*** tapped Call button")
+        XCUIDevice.shared.orientation = .faceUp
+
+        print("phoneApp.buttons", phoneApp.buttons)
+        // console shows
+        //warning: could not execute support code to read Objective-C class data in the process. This may reduce the quality of type information available.
+        // phoneApp.buttons <XCUIElementQuery: 0x1c0097f20>
+
+        // test never finds end call button
+        if phoneApp.buttons["End call"].waitForExistence(timeout: 20) {
+            phoneApp.buttons["End call"].tap()
+            print("*** tapped endCall button")
+        }
+    }
+
 }
