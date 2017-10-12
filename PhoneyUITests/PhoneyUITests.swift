@@ -60,15 +60,10 @@ class PhoneyUITests: XCTestCase {
             appCallButton.tap()
             print("*** tapped app call 555-1212")
 
-            // recorded this, but when running in test it threw error
-            // https://stackoverflow.com/questions/40403805/dismissing-alert-xcuitest
-            // app.alerts["555-1212"].buttons["Call"].tap()
-
             acceptPermissionAlert()
 
             // interact with app to cause system alert handler to fire
             // https://stackoverflow.com/questions/32148965/xcode-7-ui-testing-how-to-dismiss-a-series-of-system-alerts-in-code?rq=1
-
             // avoid potential error
             // "Application for Target Application 0x1c40af060 is not foreground."
             if app.state == .runningForeground {
