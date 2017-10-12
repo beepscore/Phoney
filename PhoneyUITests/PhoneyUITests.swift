@@ -64,7 +64,12 @@ class PhoneyUITests: XCTestCase {
 
             // interact with app to cause system alert handler to fire
             // https://stackoverflow.com/questions/32148965/xcode-7-ui-testing-how-to-dismiss-a-series-of-system-alerts-in-code?rq=1
-            app.swipeUp()
+
+            // avoid potential error
+            // "Application for Target Application 0x1c40af060 is not foreground."
+            if app.state == .runningForeground {
+                app.swipeUp()
+            }
 
             // https://stackoverflow.com/questions/9910366/what-is-the-bundle-identifier-of-apples-default-applications-in-ios
             // https://github.com/joeblau/apple-bundle-identifiers
