@@ -77,25 +77,6 @@ class PhoneyUITests: XCTestCase {
         }
     }
 
-    static var providerConfiguration: CXProviderConfiguration {
-
-        let providerConfiguration = CXProviderConfiguration(localizedName: "Hotline")
-
-        providerConfiguration.supportsVideo = false
-        providerConfiguration.maximumCallsPerCallGroup = 1
-        providerConfiguration.supportedHandleTypes = [.phoneNumber]
-
-        return providerConfiguration
-    }
-
-    func callPhoneNumber(app: XCUIApplication, phoneNumberString: String) {
-
-        for digitCharacter in phoneNumberString {
-            app.buttons[String(digitCharacter)].tap()
-        }
-        app.buttons["Call"].tap()
-    }
-
 }
 
 
