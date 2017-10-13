@@ -31,13 +31,23 @@ This has big advantage can generate gesture within XCUITest.
 ### custom gesture
 Set one gesture to advance, one to select.
 
-### iOS Switch Control on a Budget using Bluetooth Keyboards
+### BLE keyboard emulator and wireless service
+On iOS device enable switch control from external bluetooth keyboad.
+Pair iOS device with hardware (Raspberry Pi?) acting as a BLE keyboard emulator and as a web service.
+XCUITest could call the web service to end phone call.
+Service could respond by sending emulated keystrokes to select and tap red end call button.
+
+#### iOS Switch Control on a Budget using Bluetooth Keyboards
 https://www.youtube.com/watch?v=qDOVPdX9BE0
 
-### HIDKeyboard
+#### Raspberry Pi keyboard emulator
+https://impythonist.wordpress.com/2014/02/01/emulate-a-bluetooth-keyboard-with-the-raspberry-pi/
+code not working in Raspbian Jessie?
+
+#### HIDKeyboard
 https://learn.adafruit.com/introducing-the-adafruit-bluefruit-spi-breakout/hidkeyboard
 
-### Bluefruit EZ-Key - 12 Input Bluetooth HID Keyboard Controller - v1.2
+#### Bluefruit EZ-Key - 12 Input Bluetooth HID Keyboard Controller - v1.2
 PRODUCT ID: 1535
 $19.95
 https://www.adafruit.com/product/1535
@@ -52,6 +62,7 @@ This will end the phone call and leave the view with the red end call button.
 The phone will navigate to the phone application view with the green start call button.
 Disadvantage: very limited, only works for a few actions.
 Then XCUITest can call application terminate to get back to initial Phoney app?
+
 
 ## Appendix - setup
 
