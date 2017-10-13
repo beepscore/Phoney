@@ -3,6 +3,9 @@ Phoney is an iOS application to experiment with testing phone calls.
 
 # References
 
+## Use Switch Control to navigate your iPhone, iPad, or iPod touch
+https://support.apple.com/en-us/HT201370
+
 ## How to detect call incoming programmatically
 https://stackoverflow.com/questions/23535355/how-to-detect-call-incoming-programmatically/24930697#24930697
 
@@ -24,6 +27,8 @@ Turn on Switch Control, set it to work with either custom gestures or raspberry 
 ### custom gesture
 Set one gesture to advance, one to select.
 This has big advantage can generate gesture within XCUITest.
+### bluetooth keyboard
+https://www.youtube.com/watch?v=qDOVPdX9BE0
 
 
 ## switch
