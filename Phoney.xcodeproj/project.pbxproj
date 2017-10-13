@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE013A2C1F90AD5200DA0DA9 /* AVCaptureDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE013A2B1F90AD5200DA0DA9 /* AVCaptureDeviceExtension.swift */; };
-		DE9ED5861F90B6E90082E933 /* AVCaptureDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE013A2B1F90AD5200DA0DA9 /* AVCaptureDeviceExtension.swift */; };
 		DEA1B2961F8F1C6B00F64C25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1B2951F8F1C6B00F64C25 /* AppDelegate.swift */; };
 		DEA1B2981F8F1C6B00F64C25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1B2971F8F1C6B00F64C25 /* ViewController.swift */; };
 		DEA1B29B1F8F1C6B00F64C25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA1B2991F8F1C6B00F64C25 /* Main.storyboard */; };
@@ -36,7 +34,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DE013A2B1F90AD5200DA0DA9 /* AVCaptureDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCaptureDeviceExtension.swift; sourceTree = "<group>"; };
 		DE8C92911F8F1D6400A15288 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DEA1B2921F8F1C6B00F64C25 /* Phoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA1B2951F8F1C6B00F64C25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,7 +123,6 @@
 			children = (
 				DEA1B2B51F8F1C6B00F64C25 /* PhoneyUITests.swift */,
 				DEA1B2B71F8F1C6B00F64C25 /* Info.plist */,
-				DE013A2B1F90AD5200DA0DA9 /* AVCaptureDeviceExtension.swift */,
 			);
 			path = PhoneyUITests;
 			sourceTree = "<group>";
@@ -265,7 +261,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE9ED5861F90B6E90082E933 /* AVCaptureDeviceExtension.swift in Sources */,
 				DEA1B2981F8F1C6B00F64C25 /* ViewController.swift in Sources */,
 				DEA1B2961F8F1C6B00F64C25 /* AppDelegate.swift in Sources */,
 			);
@@ -284,7 +279,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEA1B2B61F8F1C6B00F64C25 /* PhoneyUITests.swift in Sources */,
-				DE013A2C1F90AD5200DA0DA9 /* AVCaptureDeviceExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
