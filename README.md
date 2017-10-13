@@ -37,6 +37,12 @@ https://www.youtube.com/watch?v=qDOVPdX9BE0
 ### HIDKeyboard
 https://learn.adafruit.com/introducing-the-adafruit-bluefruit-spi-breakout/hidkeyboard
 
+### Bluefruit EZ-Key - 12 Input Bluetooth HID Keyboard Controller - v1.2
+PRODUCT ID: 1535
+$19.95
+https://www.adafruit.com/product/1535
+Note: This product is currently undergoing a revision and will be available again soon!
+
 ## switch
 Ideas:
 Plug microphone or remote control switch into phone microphone jack.
