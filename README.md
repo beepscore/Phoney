@@ -24,12 +24,18 @@ I think CXCallObserver, CXCallProvider are for VOIP apps, not for apps that navi
 ## Accessibility Switch Control
 Ideas:
 Turn on Switch Control, set it to work with either custom gestures or raspberry pi that mimics external bluetooth keyboard.
+### screen switch
+seems very limited, only one switch.
+
+This has big advantage can generate gesture within XCUITest.
 ### custom gesture
 Set one gesture to advance, one to select.
-This has big advantage can generate gesture within XCUITest.
-### bluetooth keyboard
+
+### iOS Switch Control on a Budget using Bluetooth Keyboards
 https://www.youtube.com/watch?v=qDOVPdX9BE0
 
+### HIDKeyboard
+https://learn.adafruit.com/introducing-the-adafruit-bluefruit-spi-breakout/hidkeyboard
 
 ## switch
 Ideas:
@@ -38,5 +44,13 @@ Write macos program to close a switch. Could use an arduino.
 In XCUITest, issue macos system call to close the switch.
 This will end the phone call and leave the view with the red end call button.
 The phone will navigate to the phone application view with the green start call button.
+Disadvantage: very limited, only works for a few actions.
 Then XCUITest can call application terminate to get back to initial Phoney app?
+
+## Appendix - setup
+
+Go to Settings > General > Accessibility > Switch Control.
+Tap Scanning Style, then select Manual Scanning.
+
+Set up a switch to perform the tap gesture at Settings > General > Accessibility > Switch Control > Switches.
 
