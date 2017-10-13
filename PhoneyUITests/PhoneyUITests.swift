@@ -7,6 +7,8 @@
 //
 
 import XCTest
+import UIKit
+import AVFoundation
 
 
 class PhoneyUITests: XCTestCase {
@@ -50,7 +52,18 @@ class PhoneyUITests: XCTestCase {
         }
     }
 
+    func setTorchMaximum() {
+        // turn light on- this can illuminate a photodetector,
+        // close switch connected to headphone jack and end call
+        // this is a "mostly hardware" solution
+        var device: AVCaptureDevice!
+        device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .unspecified)
+        device.setTorchMaximum()
+    }
+
     func testCallTapped() {
+
+        setTorchMaximum()
 
         // don't specify bundle id
         let app = XCUIApplication()
@@ -68,11 +81,12 @@ class PhoneyUITests: XCTestCase {
             app.tap()
             print("app.debugDescription:\n \(app.debugDescription)")
 
-//            let endCallButton = app.buttons["End call"]
-//            if endCallButton.waitForExistence(timeout: 40) {
-//                endCallButton.tap()
-//                print("*** tapped endCallButton")
-//            }
+
+            let endCallButton = app.buttons["End call"]
+            if endCallButton.waitForExistence(timeout: 20) {
+                endCallButton.tap()
+                print("*** tapped endCallButton")
+            }
 
         }
     }

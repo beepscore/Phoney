@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
@@ -17,11 +18,21 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         self.callButton.setTitle("call \(phoneNumber)", for: .normal)
+        //setTorchMaximum()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func setTorchMaximum() {
+        // turn light on- this can illuminate a photodetector,
+        // close switch connected to headphone jack and end call
+        // this is a "mostly hardware" solution
+        var device: AVCaptureDevice!
+        device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .unspecified)
+        device.setTorchMaximum()
     }
 
     /// on device, when user taps button, iOS shows an alert with "Cancel" and "Call"
