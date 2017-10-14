@@ -11,7 +11,6 @@ import XCTest
 
 class PhoneyUITests: XCTestCase {
 
-    let expectation = XCTestExpectation(description: "expect call ended")
     var alertCallButton: XCUIElement?
 
     override func setUp() {
@@ -50,10 +49,79 @@ class PhoneyUITests: XCTestCase {
         }
     }
 
+    /// make a web request to a service to end the phone call
+    func endCall(expectation: XCTestExpectation) {
+
+        //let expectation = XCTestExpectation(description: "expect call ended")
+
+        // https://stackoverflow.com/questions/26364914/http-request-in-swift-with-post-method#26365148
+        let urlString = "http://10.0.0.4:5000/api/v1/gpio/set-all-outputs-high/"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+
+        //request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        request.httpMethod = "POST"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+
+            guard let data = data, error == nil else {
+                // fundamental networking error
+                print("error=\(String(describing: error))")
+                // expectation.fulfill()
+                return
+            }
+
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                // http error
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(String(describing: response))")
+            }
+
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(String(describing: responseString))")
+            // responseString = Optional("{\n  \"data\": [\n    {\n      \"error\": null,\n      \"new_value\": 1,\n      \"pin_direction\": \"output\",\n      \"pin_name\": \"OUT_24\",\n      \"pin_number\": \"24\",\n      \"status\": \"SUCCESS\"\n    },\n    {\n      \"error\": null,\n      \"new_value\": 1,\n      \"pin_direction\": \"output\",\n      \"pin_name\": \"OUT_25\",\n      \"pin_number\": \"25\",\n      \"status\": \"SUCCESS\"\n    }\n  ]\n}")
+
+            self.writeToFile(filename: "junk.txt", text: "\(String(describing: responseString))")
+            expectation.fulfill()
+        }
+        task.resume()
+
+    }
+
+    // https://stackoverflow.com/questions/24097826/read-and-write-data-from-text-file
+    func writeToFile(filename: String, text: String) {
+
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(filename)
+
+            // write
+            do {
+                try text.write(to: fileURL, atomically: false, encoding: .utf8)
+            }
+            catch {
+                // TODO: handle error
+            }
+
+            // read
+            do {
+                let text2 = try String(contentsOf: fileURL, encoding: .utf8)
+                print(text2)
+            }
+            catch {
+                // TODO: handle error
+            }
+        }
+    }
+
     func testCallTapped() {
 
+        // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
+        let expectation = self.expectation(description: "expect call ended")
+
         // don't specify bundle id
-        let app = XCUIApplication()
+        // let app = XCUIApplication()
+        let app = XCUIApplication(bundleIdentifier: "com.beepscore.Phoney")
         //print("app.debugDescription:\n \(app.debugDescription)")
 
         let appCallButton = app.buttons["call 555-1212"]
@@ -65,14 +133,22 @@ class PhoneyUITests: XCTestCase {
 
             // interact with app to cause system alert handler to fire
             // https://stackoverflow.com/questions/32148965/xcode-7-ui-testing-how-to-dismiss-a-series-of-system-alerts-in-code?rq=1
-            app.tap()
-            print("app.debugDescription:\n \(app.debugDescription)")
+            // avoid potential error
+            // "Application for Target Application 0x1c40af060 is not foreground."
+            // I think this still fails sometimes due to race condition
+            if app.state == .runningForeground {
+                app.tap()
+            }
 
-//            let endCallButton = app.buttons["End call"]
-//            if endCallButton.waitForExistence(timeout: 40) {
-//                endCallButton.tap()
-//                print("*** tapped endCallButton")
-//            }
+            //sleep(10)
+
+            endCall(expectation: expectation)
+
+            waitForExpectations(timeout: 20) { (error) in
+                if let error = error {
+                    XCTFail("expectation timed out with error: \(error)")
+                }
+            }
 
         }
     }
