@@ -53,11 +53,10 @@ class PhoneyUITests: XCTestCase {
     func endCall(expectation: XCTestExpectation) {
 
         // https://stackoverflow.com/questions/26364914/http-request-in-swift-with-post-method#26365148
-        let urlString = "http://10.0.0.4:5000/api/v1/gpio/set-all-outputs-high/"
+        let urlString = "http://10.0.0.4:5000/api/v1/gpio/end-phone-call/"
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
 
-        //request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         request.httpMethod = "POST"
