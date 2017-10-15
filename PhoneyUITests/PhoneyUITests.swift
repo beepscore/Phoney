@@ -44,9 +44,6 @@ class PhoneyUITests: XCTestCase {
                 alert.buttons["Call"].tap()
                 print("*** tapped alert Call")
 
-                // sleep msec??
-                // sleep(10)
-
                 self.endCall(expectation: expectation)
 
                 return true
