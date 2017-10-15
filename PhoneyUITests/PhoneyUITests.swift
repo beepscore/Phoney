@@ -52,8 +52,6 @@ class PhoneyUITests: XCTestCase {
     /// make a web request to a service to end the phone call
     func endCall(expectation: XCTestExpectation) {
 
-        //let expectation = XCTestExpectation(description: "expect call ended")
-
         // https://stackoverflow.com/questions/26364914/http-request-in-swift-with-post-method#26365148
         let urlString = "http://10.0.0.4:5000/api/v1/gpio/set-all-outputs-high/"
         let url = URL(string: urlString)!
@@ -90,6 +88,10 @@ class PhoneyUITests: XCTestCase {
 
     func testCallTapped() {
 
+        // this syntax resulted in an error message
+        // "NSInternalInconsistencyException", "API violation - call made to wait without any expectations having been set."
+        // let expectation = XCTestExpectation(description: "expect call ended")
+        // instead instantiate via self.expectation
         // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
         let expectation = self.expectation(description: "expect call ended")
 
