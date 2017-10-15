@@ -109,7 +109,7 @@ class PhoneyUITests: XCTestCase {
             acceptPermissionAlert(expectation: expectation)
 
             appCallButton.tap()
-            //xprint("*** tapped appCallButton")
+            print("*** tapped appCallButton")
 
             // interact with app to cause system alert handler to fire
             // https://stackoverflow.com/questions/32148965/xcode-7-ui-testing-how-to-dismiss-a-series-of-system-alerts-in-code?rq=1
@@ -117,7 +117,8 @@ class PhoneyUITests: XCTestCase {
             // "Application for Target Application 0x1c40af060 is not foreground."
             // I think this still fails sometimes due to race condition
             if app.state == .runningForeground {
-                app.tap()
+                app.swipeUp()
+                print("*** swiped up")
             }
 
             waitForExpectations(timeout: 20) { (error) in
