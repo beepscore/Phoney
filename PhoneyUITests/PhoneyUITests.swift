@@ -35,9 +35,9 @@ class PhoneyUITests: XCTestCase {
     /// handle system alert shown by iOS
     /// https://stackoverflow.com/questions/39973904/handler-of-adduiinterruptionmonitor-is-not-called-for-alert-related-to-photos/39976352#39976352
     /// http://masilotti.com/ui-testing-cheat-sheet/
-    private func acceptPermissionAlert(expectation: XCTestExpectation) {
+    private func acceptPermissionAlert(expectation: XCTestExpectation) -> NSObjectProtocol {
 
-        let _ = addUIInterruptionMonitor(withDescription: "call alert") { alert -> Bool in
+        let token = addUIInterruptionMonitor(withDescription: "call alert") { alert -> Bool in
 
             if alert.buttons["Call"].exists {
                 self.alertCallButton = alert.buttons["Call"]
@@ -45,11 +45,13 @@ class PhoneyUITests: XCTestCase {
                 print("*** tapped alert Call")
 
                 self.endCall(expectation: expectation)
-
+                // indicate handler did handle the alert
                 return true
             }
+            // indicate handler did not handle the alert
             return false
         }
+        return token
     }
 
     /// make a web request to a service to end the phone call
@@ -106,7 +108,7 @@ class PhoneyUITests: XCTestCase {
             // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
             let expectation = self.expectation(description: "expect call ended")
 
-            acceptPermissionAlert(expectation: expectation)
+            let token = acceptPermissionAlert(expectation: expectation)
 
             appCallButton.tap()
             print("*** tapped appCallButton")
