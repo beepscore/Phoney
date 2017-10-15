@@ -34,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE5D940B1F92E651008DFA4B /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DE8C92911F8F1D6400A15288 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DEA1B2921F8F1C6B00F64C25 /* Phoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA1B2951F8F1C6B00F64C25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				DE8C92911F8F1D6400A15288 /* README.md */,
+				DE5D940B1F92E651008DFA4B /* LICENSE */,
 				DEA1B2941F8F1C6B00F64C25 /* Phoney */,
 				DEA1B2A91F8F1C6B00F64C25 /* PhoneyTests */,
 				DEA1B2B41F8F1C6B00F64C25 /* PhoneyUITests */,
