@@ -32,10 +32,10 @@ class PhoneyUITests: XCTestCase {
         super.tearDown()
     }
 
-    // handle system alert shown by iOS
-    // https://stackoverflow.com/questions/39973904/handler-of-adduiinterruptionmonitor-is-not-called-for-alert-related-to-photos/39976352#39976352
-    // http://masilotti.com/ui-testing-cheat-sheet/
-    private func acceptPermissionAlert() {
+    /// handle system alert shown by iOS
+    /// https://stackoverflow.com/questions/39973904/handler-of-adduiinterruptionmonitor-is-not-called-for-alert-related-to-photos/39976352#39976352
+    /// http://masilotti.com/ui-testing-cheat-sheet/
+    private func acceptPermissionAlert(expectation: XCTestExpectation) {
 
         let _ = addUIInterruptionMonitor(withDescription: "call alert") { alert -> Bool in
 
@@ -43,6 +43,12 @@ class PhoneyUITests: XCTestCase {
                 self.alertCallButton = alert.buttons["Call"]
                 alert.buttons["Call"].tap()
                 print("*** tapped alert Call")
+
+                // sleep msec??
+                // sleep(10)
+
+                self.endCall(expectation: expectation)
+
                 return true
             }
             return false
@@ -65,7 +71,6 @@ class PhoneyUITests: XCTestCase {
             guard let data = data, error == nil else {
                 // fundamental networking error
                 print("error=\(String(describing: error))")
-                // expectation.fulfill()
                 return
             }
 
@@ -75,36 +80,39 @@ class PhoneyUITests: XCTestCase {
                 print("response = \(String(describing: response))")
             }
 
+            // got response from web server
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(String(describing: responseString))")
             // responseString = Optional("{\n  \"error\": null,\n  \"new_value\": 0,\n  \"pin_direction\": \"output\",\n  \"pin_name\": \"OUT_24\",\n  \"pin_number\": \"24\",\n  \"status\": \"SUCCESS\"\n}")
 
+            // TODO: consider parse json, add conditional if SUCCESS
+
             expectation.fulfill()
         }
         task.resume()
-
     }
 
     func testCallTapped() {
-
-        // this syntax resulted in an error message
-        // "NSInternalInconsistencyException", "API violation - call made to wait without any expectations having been set."
-        // let expectation = XCTestExpectation(description: "expect call ended")
-        // instead instantiate via self.expectation
-        // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
-        let expectation = self.expectation(description: "expect call ended")
 
         // don't specify bundle id
         // let app = XCUIApplication()
         let app = XCUIApplication(bundleIdentifier: "com.beepscore.Phoney")
         //print("app.debugDescription:\n \(app.debugDescription)")
 
-        let appCallButton = app.buttons["call 555-1212"]
-        if appCallButton.waitForExistence(timeout: 5) {
-            appCallButton.tap()
-            print("*** tapped app call 555-1212")
+        let appCallButton = app.buttons["Call Now"]
+        if appCallButton.waitForExistence(timeout: 10) {
 
-            acceptPermissionAlert()
+            // this syntax resulted in an error message
+            // "NSInternalInconsistencyException", "API violation - call made to wait without any expectations having been set."
+            // let expectation = XCTestExpectation(description: "expect call ended")
+            // instead instantiate via self.expectation
+            // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
+            let expectation = self.expectation(description: "expect call ended")
+
+            acceptPermissionAlert(expectation: expectation)
+
+            appCallButton.tap()
+            //xprint("*** tapped appCallButton")
 
             // interact with app to cause system alert handler to fire
             // https://stackoverflow.com/questions/32148965/xcode-7-ui-testing-how-to-dismiss-a-series-of-system-alerts-in-code?rq=1
@@ -114,10 +122,6 @@ class PhoneyUITests: XCTestCase {
             if app.state == .runningForeground {
                 app.tap()
             }
-
-            //sleep(10)
-
-            endCall(expectation: expectation)
 
             waitForExpectations(timeout: 20) { (error) in
                 if let error = error {

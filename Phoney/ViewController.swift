@@ -10,13 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // Don't use. ATT may charge if you connect and then get a phone number from them
+    // let phoneNumber = "555-1212"
+    let wellsFargoPhoneNumber = "800-869-3557"
+
+    @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var callButton: UIButton!
-    let phoneNumber = "555-1212"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.callButton.setTitle("call \(phoneNumber)", for: .normal)
+        phoneNumberLabel.text = wellsFargoPhoneNumber
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,7 +34,7 @@ class ViewController: UIViewController {
         print("callTapped")
 
         // https://stackoverflow.com/questions/27259824/calling-a-phone-number-in-swift
-        if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+        if let phoneCallURL = URL(string: "tel://\(wellsFargoPhoneNumber)") {
 
             let application:UIApplication = UIApplication.shared
             if (application.canOpenURL(phoneCallURL)) {
