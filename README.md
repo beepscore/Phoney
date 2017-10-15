@@ -3,6 +3,10 @@ Phoney is an iOS application to experiment with testing phone calls.
 
 # References
 
+## pi_gpio_service
+Make a simple Python flask web service to read and write Raspberry Pi GPIO.  
+https://github.com/beepscore/pi_gpio_service
+
 ## Use Switch Control to navigate your iPhone, iPad, or iPod touch
 https://support.apple.com/en-us/HT201370
 
