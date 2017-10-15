@@ -82,36 +82,10 @@ class PhoneyUITests: XCTestCase {
             print("responseString = \(String(describing: responseString))")
             // responseString = Optional("{\n  \"data\": [\n    {\n      \"error\": null,\n      \"new_value\": 1,\n      \"pin_direction\": \"output\",\n      \"pin_name\": \"OUT_24\",\n      \"pin_number\": \"24\",\n      \"status\": \"SUCCESS\"\n    },\n    {\n      \"error\": null,\n      \"new_value\": 1,\n      \"pin_direction\": \"output\",\n      \"pin_name\": \"OUT_25\",\n      \"pin_number\": \"25\",\n      \"status\": \"SUCCESS\"\n    }\n  ]\n}")
 
-            self.writeToFile(filename: "junk.txt", text: "\(String(describing: responseString))")
             expectation.fulfill()
         }
         task.resume()
 
-    }
-
-    // https://stackoverflow.com/questions/24097826/read-and-write-data-from-text-file
-    func writeToFile(filename: String, text: String) {
-
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = dir.appendingPathComponent(filename)
-
-            // write
-            do {
-                try text.write(to: fileURL, atomically: false, encoding: .utf8)
-            }
-            catch {
-                // TODO: handle error
-            }
-
-            // read
-            do {
-                let text2 = try String(contentsOf: fileURL, encoding: .utf8)
-                print(text2)
-            }
-            catch {
-                // TODO: handle error
-            }
-        }
     }
 
     func testCallTapped() {
