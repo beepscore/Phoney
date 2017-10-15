@@ -77,7 +77,7 @@ class PhoneyUITests: XCTestCase {
 
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(String(describing: responseString))")
-            // responseString = Optional("{\n  \"data\": [\n    {\n      \"error\": null,\n      \"new_value\": 1,\n      \"pin_direction\": \"output\",\n      \"pin_name\": \"OUT_24\",\n      \"pin_number\": \"24\",\n      \"status\": \"SUCCESS\"\n    },\n    {\n      \"error\": null,\n      \"new_value\": 1,\n      \"pin_direction\": \"output\",\n      \"pin_name\": \"OUT_25\",\n      \"pin_number\": \"25\",\n      \"status\": \"SUCCESS\"\n    }\n  ]\n}")
+            // responseString = Optional("{\n  \"error\": null,\n  \"new_value\": 0,\n  \"pin_direction\": \"output\",\n  \"pin_name\": \"OUT_24\",\n  \"pin_number\": \"24\",\n  \"status\": \"SUCCESS\"\n}")
 
             expectation.fulfill()
         }
