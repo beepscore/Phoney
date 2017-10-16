@@ -128,17 +128,19 @@ class PhoneyUITests: XCTestCase {
             appCallButton.tap()
             print("*** tapped appCallButton")
 
+            // App makes phone call.
+
             // interact with app to cause system alert handler to fire
             // https://stackoverflow.com/questions/32148965/xcode-7-ui-testing-how-to-dismiss-a-series-of-system-alerts-in-code?rq=1
-            // avoid potential error
-            // "Application for Target Application 0x1c40af060 is not foreground."
-            // I think this still fails sometimes due to race condition
-            if app.state == .runningForeground {
-                app.swipeUp()
-                print("*** swiped up")
-            }
+            // Currently this shows test failure ~ 90% of the time, maybe due to race condition.
+            // error "Application for Target Application 0x1c40af060 is not foreground."
+            // Without hardware connection from server to phone, it can't end call.
+            // Manually pressing red end call button can make test pass without error.
+            // TODO: recheck test after connecting server to hardware to end call on device.
+            XCUIApplication().swipeUp()
+            print("*** swiped up")
 
-            waitForExpectations(timeout: 20) { (error) in
+            waitForExpectations(timeout: 30) { (error) in
                 if let error = error {
                     XCTFail("expectation timed out with error: \(error)")
                 }
