@@ -47,6 +47,9 @@ class PhoneyUITests: XCTestCase {
                 alert.buttons["Call"].tap()
                 print("*** tapped alert Call")
 
+                let startCallDelaySeconds = UInt32(8)
+                sleep(startCallDelaySeconds)
+
                 self.endCall(expectation: expectation)
                 // indicate handler handled the alert
                 return true
@@ -80,16 +83,25 @@ class PhoneyUITests: XCTestCase {
                 // http error
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("response = \(String(describing: response))")
+                return
             }
 
-            // got response from web server
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(String(describing: responseString))")
-            // responseString = Optional("{\n  \"error\": null,\n  \"new_value\": 0,\n  \"pin_direction\": \"output\",\n  \"pin_name\": \"OUT_24\",\n  \"pin_number\": \"24\",\n  \"status\": \"SUCCESS\"\n}")
+            let decoder = JSONDecoder()
+            do {
+                let endCallResponse = try decoder.decode(EndCallResponse.self, from: data)
+                print("endCallResponse", endCallResponse)
 
-            // TODO: consider parse json, add conditional if SUCCESS
+                if endCallResponse.status == "SUCCESS" {
 
-            expectation.fulfill()
+                    let endCallDelaySeconds = UInt32(8)
+                    sleep(endCallDelaySeconds)
+
+                    expectation.fulfill()
+                }
+            } catch {
+                print("error trying to convert data to JSON")
+                print(error)
+            }
         }
         task.resume()
     }
