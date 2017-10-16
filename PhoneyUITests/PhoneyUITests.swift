@@ -11,7 +11,7 @@ import XCTest
 
 class PhoneyUITests: XCTestCase {
 
-    var alertCallButton: XCUIElement?
+    var token: NSObjectProtocol?
 
     override func setUp() {
         super.setUp()
@@ -29,6 +29,10 @@ class PhoneyUITests: XCTestCase {
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        if self.token != nil {
+            removeUIInterruptionMonitor(self.token!)
+        }
+
         super.tearDown()
     }
 
@@ -40,12 +44,11 @@ class PhoneyUITests: XCTestCase {
         let token = addUIInterruptionMonitor(withDescription: "call alert") { alert -> Bool in
 
             if alert.buttons["Call"].exists {
-                self.alertCallButton = alert.buttons["Call"]
                 alert.buttons["Call"].tap()
                 print("*** tapped alert Call")
 
                 self.endCall(expectation: expectation)
-                // indicate handler did handle the alert
+                // indicate handler handled the alert
                 return true
             }
             // indicate handler did not handle the alert
@@ -108,7 +111,7 @@ class PhoneyUITests: XCTestCase {
             // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
             let expectation = self.expectation(description: "expect call ended")
 
-            let token = acceptPermissionAlert(expectation: expectation)
+            self.token = acceptPermissionAlert(expectation: expectation)
 
             appCallButton.tap()
             print("*** tapped appCallButton")
