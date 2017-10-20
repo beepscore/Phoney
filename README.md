@@ -23,14 +23,13 @@ However, playing the recorded code doesn't work, the test never "sees" the red b
 I think Apple or carrier may be restricting info/access to a call in progress.
 
 ## CXCallObserver
-- Advantages: doesn't require any additional hardware.
-- Disadvantages:
+The app uses CXCallObserver delegate method callObserver(_ callObserver: callChanged:)
+The app can use this to verify that a call hasConnected or hasEnded.  
+But it's only an observer, doesn't have a method to end a call.
 
-    I think CXCallObserver, CXCallProvider are designed for VOIP apps, not for apps that navigate to phone app.
-    I used CXCallObserver delegate methods to detect call status.
-    I tried using CXCallProvider to end call, but it didn't work, maybe because the call was not started by a VOIP app.
-    I deleted this code.
-
+## CXCallProvider
+I tried using CXCallProvider to end call.
+It didn't work, maybe because the call was not started by a VOIP app.
 For more info see appendix.
 
 ## headphone jack switch
