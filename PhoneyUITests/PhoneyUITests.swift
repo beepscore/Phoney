@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import CallKit
 
 
 class PhoneyUITests: XCTestCase {
@@ -24,6 +25,7 @@ class PhoneyUITests: XCTestCase {
         XCUIApplication().launch()
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+
 
     }
     
@@ -108,6 +110,9 @@ class PhoneyUITests: XCTestCase {
 
     func testCallTapped() {
 
+        let callObserver = CXCallObserver()
+        callObserver.setDelegate(self, queue: nil)
+
         // don't specify bundle id
         // let app = XCUIApplication()
         let app = XCUIApplication(bundleIdentifier: "com.beepscore.Phoney")
@@ -149,6 +154,18 @@ class PhoneyUITests: XCTestCase {
         }
     }
 
+}
+
+extension PhoneyUITests: CXCallObserverDelegate {
+
+    func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
+
+        // TODO: consider using call.hasEnded to fulfill test expectation.
+        // This seems a more fundamental indication of success than using endCallResponse.status
+        print("isOutgoing:  \(call.isOutgoing)")
+        print("hasConnected:  \(call.hasConnected)")
+        print("hasEnded: \(call.hasEnded)")
+    }
 }
 
 
