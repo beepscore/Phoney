@@ -114,6 +114,17 @@ class PhoneyUITests: XCTestCase {
 
     func testCallTapped() {
 
+        // this syntax resulted in an error message
+        // "NSInternalInconsistencyException", "API violation - call made to wait without any expectations having been set."
+        // let expectation = XCTestExpectation(description: "expect call ended")
+        // instead instantiate via self.expectation
+        // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
+        let expectServerResponseStatusSuccess = self.expectation(description: "expect server response success")
+
+        self.expectCallHasConnected = self.expectation(description: "expect call hasConnected")
+        self.expectCallHasEnded = self.expectation(description: "expect call hasEnded")
+
+
         let callObserver = CXCallObserver()
         callObserver.setDelegate(self, queue: nil)
 
@@ -126,16 +137,6 @@ class PhoneyUITests: XCTestCase {
 
         let appCallButton = app.buttons["Call Now"]
         if appCallButton.waitForExistence(timeout: 10) {
-
-            // this syntax resulted in an error message
-            // "NSInternalInconsistencyException", "API violation - call made to wait without any expectations having been set."
-            // let expectation = XCTestExpectation(description: "expect call ended")
-            // instead instantiate via self.expectation
-            // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
-            let expectServerResponseStatusSuccess = self.expectation(description: "expect server response success")
-
-            self.expectCallHasConnected = self.expectation(description: "expect call hasConnected")
-            self.expectCallHasEnded = self.expectation(description: "expect call hasEnded")
 
             self.token = acceptPermissionAlert(expectServerResponseStatusSuccess: expectServerResponseStatusSuccess)
 
