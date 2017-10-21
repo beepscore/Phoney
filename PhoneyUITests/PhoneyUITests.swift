@@ -41,7 +41,7 @@ class PhoneyUITests: XCTestCase {
     /// handle system alert shown by iOS
     /// https://stackoverflow.com/questions/39973904/handler-of-adduiinterruptionmonitor-is-not-called-for-alert-related-to-photos/39976352#39976352
     /// http://masilotti.com/ui-testing-cheat-sheet/
-    private func acceptPermissionAlert(expectation: XCTestExpectation) -> NSObjectProtocol {
+    private func acceptPermissionAlert(expectServerResponseStatusSuccess: XCTestExpectation) -> NSObjectProtocol {
 
         let token = addUIInterruptionMonitor(withDescription: "call alert") { alert -> Bool in
 
@@ -52,7 +52,7 @@ class PhoneyUITests: XCTestCase {
                 let startCallDelaySeconds = UInt32(8)
                 sleep(startCallDelaySeconds)
 
-                self.endCall(expectation: expectation)
+                self.endCall(expectServerResponseStatusSuccess: expectServerResponseStatusSuccess)
                 // indicate handler handled the alert
                 return true
             }
@@ -63,7 +63,7 @@ class PhoneyUITests: XCTestCase {
     }
 
     /// make a web request to a service to end the phone call
-    func endCall(expectation: XCTestExpectation) {
+    func endCall(expectServerResponseStatusSuccess: XCTestExpectation) {
 
         // https://stackoverflow.com/questions/26364914/http-request-in-swift-with-post-method#26365148
         let urlString = "http://10.0.0.4:5000/api/v1/gpio/end-phone-call/"
@@ -98,7 +98,7 @@ class PhoneyUITests: XCTestCase {
                     let endCallDelaySeconds = UInt32(8)
                     sleep(endCallDelaySeconds)
 
-                    expectation.fulfill()
+                    expectServerResponseStatusSuccess.fulfill()
                 }
             } catch {
                 print("error trying to convert data to JSON")
@@ -126,9 +126,9 @@ class PhoneyUITests: XCTestCase {
             // let expectation = XCTestExpectation(description: "expect call ended")
             // instead instantiate via self.expectation
             // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
-            let expectation = self.expectation(description: "expect call ended")
+            let expectServerResponseStatusSuccess = self.expectation(description: "expect server response success")
 
-            self.token = acceptPermissionAlert(expectation: expectation)
+            self.token = acceptPermissionAlert(expectServerResponseStatusSuccess: expectServerResponseStatusSuccess)
 
             appCallButton.tap()
             print("*** tapped appCallButton")
