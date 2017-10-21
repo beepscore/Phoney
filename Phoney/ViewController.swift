@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        phoneNumberLabel.text = wellsFargoPhoneNumber
+        phoneNumberLabel.text = "Wells Fargo \(wellsFargoPhoneNumber)"
     }
 
     override func didReceiveMemoryWarning() {
