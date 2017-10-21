@@ -118,8 +118,8 @@ class PhoneyUITests: XCTestCase {
         callObserver.setDelegate(self, queue: nil)
 
         // don't specify bundle id
-        // let app = XCUIApplication()
-        let app = XCUIApplication(bundleIdentifier: "com.beepscore.Phoney")
+        let app = XCUIApplication()
+        //let app = XCUIApplication(bundleIdentifier: "com.beepscore.Phoney")
         //print("app.debugDescription:\n \(app.debugDescription)")
 
         app.launch()
@@ -149,6 +149,7 @@ class PhoneyUITests: XCTestCase {
             // Currently this shows test failure ~ 90% of the time, maybe due to race condition.
             // error "Application for Target Application 0x1c40af060 is not foreground."
             // Manually pressing red end call button can make test pass without error.
+            // Ending phone call within first ~ 3 seconds may avoid this error?? Why??
             app.swipeUp()
             print("*** swiped up")
 
