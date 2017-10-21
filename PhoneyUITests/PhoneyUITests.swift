@@ -14,6 +14,10 @@ class PhoneyUITests: XCTestCase {
 
     var token: NSObjectProtocol?
 
+    //https://jeremywsherman.com/blog/2016/03/19/xctestexpectation-gotchas/#kaboom-calling-twice
+    weak var expectCallHasConnected: XCTestExpectation?
+    weak var expectCallHasEnded: XCTestExpectation?
+
     override func setUp() {
         super.setUp()
         
@@ -98,6 +102,8 @@ class PhoneyUITests: XCTestCase {
                     let endCallDelaySeconds = UInt32(8)
                     sleep(endCallDelaySeconds)
 
+                    // NOTE: expectServerResponseStatusSuccess.fulfill just shows the server processed the endCall request.
+                    // It doesn't guarantee that a phone call connected or ended
                     expectServerResponseStatusSuccess.fulfill()
                 }
             } catch {
@@ -128,6 +134,9 @@ class PhoneyUITests: XCTestCase {
             // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
             let expectServerResponseStatusSuccess = self.expectation(description: "expect server response success")
 
+            self.expectCallHasConnected = self.expectation(description: "expect call hasConnected")
+            self.expectCallHasEnded = self.expectation(description: "expect call hasEnded")
+
             self.token = acceptPermissionAlert(expectServerResponseStatusSuccess: expectServerResponseStatusSuccess)
 
             appCallButton.tap()
@@ -157,12 +166,29 @@ class PhoneyUITests: XCTestCase {
 extension PhoneyUITests: CXCallObserverDelegate {
 
     func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
+        // This callback comes from iOS.
+        // It accurately represents that a phone call connected or ended.
 
-        // TODO: consider using call.hasEnded to fulfill test expectation.
-        // This seems a more fundamental indication of success than using endCallResponse.status
-        print("isOutgoing:  \(call.isOutgoing)")
-        print("hasConnected:  \(call.hasConnected)")
-        print("hasEnded: \(call.hasEnded)")
+        if call.isOutgoing {
+            print("call isOutgoing")
+        }
+        if call.hasConnected {
+            print("call hasConnected")
+            if self.expectCallHasConnected != nil {
+                self.expectCallHasConnected?.fulfill()
+                // set nil to avoid error from calling multiple times
+                // https://jeremywsherman.com/blog/2016/03/19/xctestexpectation-gotchas/#kaboom-calling-twice
+                self.expectCallHasConnected = nil
+            }
+        }
+        if call.hasEnded {
+            print("call hasEnded")
+            if self.expectCallHasEnded != nil {
+                self.expectCallHasEnded?.fulfill()
+                // set nil to avoid error from calling multiple times
+                self.expectCallHasEnded = nil
+            }
+        }
     }
 }
 
