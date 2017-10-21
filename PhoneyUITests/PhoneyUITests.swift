@@ -51,7 +51,7 @@ class PhoneyUITests: XCTestCase {
                 alert.buttons["Call"].tap()
                 print("*** tapped alert Call")
 
-                let startCallDelaySeconds = UInt32(8)
+                let startCallDelaySeconds = UInt32(16)
                 sleep(startCallDelaySeconds)
 
                 self.endCall(expectServerResponseStatusSuccess: expectServerResponseStatusSuccess)
