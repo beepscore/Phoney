@@ -25,8 +25,6 @@ class PhoneyUITests: XCTestCase {
         
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
 
@@ -124,6 +122,8 @@ class PhoneyUITests: XCTestCase {
         let app = XCUIApplication(bundleIdentifier: "com.beepscore.Phoney")
         //print("app.debugDescription:\n \(app.debugDescription)")
 
+        app.launch()
+
         let appCallButton = app.buttons["Call Now"]
         if appCallButton.waitForExistence(timeout: 10) {
 
@@ -149,7 +149,7 @@ class PhoneyUITests: XCTestCase {
             // Currently this shows test failure ~ 90% of the time, maybe due to race condition.
             // error "Application for Target Application 0x1c40af060 is not foreground."
             // Manually pressing red end call button can make test pass without error.
-            XCUIApplication().swipeUp()
+            app.swipeUp()
             print("*** swiped up")
 
             waitForExpectations(timeout: 30) { (error) in
