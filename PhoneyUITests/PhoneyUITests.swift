@@ -96,11 +96,8 @@ class PhoneyUITests: XCTestCase {
                 print("endCallResponse", endCallResponse)
 
                 if endCallResponse.status == "SUCCESS" {
-
-                    let endCallDelaySeconds = UInt32(8)
-                    sleep(endCallDelaySeconds)
-
-                    // NOTE: expectServerResponseStatusSuccess.fulfill just shows the server processed the endCall request.
+                    // NOTE: expectServerResponseStatusSuccess.fulfill
+                    // just shows the server processed the endCall request.
                     // It doesn't guarantee that a phone call connected or ended
                     expectServerResponseStatusSuccess.fulfill()
                 }
