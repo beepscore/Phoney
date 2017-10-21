@@ -33,9 +33,6 @@ class PhoneyUITests: XCTestCase {
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        if self.token != nil {
-            removeUIInterruptionMonitor(self.token!)
-        }
 
         super.tearDown()
     }
@@ -182,6 +179,9 @@ extension PhoneyUITests: CXCallObserverDelegate {
         }
         if call.hasEnded {
             print("call hasEnded")
+            if self.token != nil {
+                removeUIInterruptionMonitor(self.token!)
+            }
             if self.expectCallHasEnded != nil {
                 self.expectCallHasEnded?.fulfill()
                 // set nil to avoid error from calling multiple times
