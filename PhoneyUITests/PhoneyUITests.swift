@@ -108,6 +108,8 @@ class PhoneyUITests: XCTestCase {
     }
 
     /// currently works on simulator but not on device
+    /// I think the problem is due to the test running in background.
+    /// May need to configure audio session to play in background and set plist
     /// phone sound switch must be on, to avoid error
     /// TTSPlaybackCreate unable to initialize dynamics: -3000
     /// Failure starting audio queue alp!
@@ -129,6 +131,20 @@ class PhoneyUITests: XCTestCase {
         let utterance = AVSpeechUtterance(string: string)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         synthesizer?.speak(utterance)
+    }
+
+    /// this works on simulator and device
+    func testSpeakTapped() {
+        let app = XCUIApplication()
+        app.launch()
+
+        let appSpeakButton = app.buttons["speak"]
+        if appSpeakButton.waitForExistence(timeout: 10) {
+            appSpeakButton.tap()
+            print("*** tapped appSpeakButton")
+            // wait for speech in Phoney.app to finish
+            sleep(4)
+        }
     }
 }
 
