@@ -34,6 +34,15 @@ http://beepscore.com/using-raspberry-pi-for-iphone-switch-control/index.html
 
 # References
 
+## XCUITest an iOS app phone call
+http://beepscore.com/xcuitest-ios-app-phone-call/index.html
+
+## Using a Raspberry Pi to end an iPhone phone call
+http://beepscore.com/using-raspberry-pi-to-end-iphone-phone-call/
+
+## Using a Raspberry Pi for iPhone Switch Control
+http://beepscore.com/using-raspberry-pi-for-iphone-switch-control/index.html
+
 ## XCUITest phone call with help from springboard
 https://stackoverflow.com/questions/46322758/call-button-on-ui-testing
 
