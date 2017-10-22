@@ -37,11 +37,22 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kV-wF-JzH">
+                                <rect key="frame" x="156" y="526" width="63" height="41"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="speak"/>
+                                <connections>
+                                    <action selector="speakTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="maC-Nw-eH7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7Gy-n7-uD4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FNi-hu-igb"/>
+                            <constraint firstItem="5kV-wF-JzH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="I5N-AM-fc7"/>
                             <constraint firstItem="7Gy-n7-uD4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="128" id="mxZ-z7-tRZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5kV-wF-JzH" secondAttribute="bottom" constant="100" id="wlR-Xe-jZR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

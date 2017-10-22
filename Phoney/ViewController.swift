@@ -7,8 +7,14 @@
 //
 
 import UIKit
+// AVFoundation for text to speech
+import AVFoundation
 
 class ViewController: UIViewController {
+
+    // making synthesizer a property fixed AVSpeechSynthesizerDelegate callbacks weren't getting called
+    // https://stackoverflow.com/questions/24093434/avspeechsynthesizer-works-on-simulator-but-not-on-device?rq=1
+    var synthesizer: AVSpeechSynthesizer?
 
     // Don't use. ATT may charge if you connect and then get a phone number from them
     // let phoneNumber = "555-1212"
@@ -21,6 +27,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         phoneNumberLabel.text = "Wells Fargo \(wellsFargoPhoneNumber)"
+
+        synthesizer = AVSpeechSynthesizer()
+        synthesizer?.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,5 +46,25 @@ class ViewController: UIViewController {
         }
     }
     
+    /// use for debugging XCUITest speaks on simulator but not on device
+    @IBAction func speakTapped(_ sender: Any) {
+        speak("other option")
+    }
+
+    func speak(_ string: String) {
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        synthesizer?.speak(utterance)
+    }
 }
 
+extension ViewController: AVSpeechSynthesizerDelegate {
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        print("didStart utterance")
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        print("didFinish utterance")
+    }
+}
