@@ -8,6 +8,8 @@
 
 import XCTest
 import CallKit
+// AVFoundation for text to speech
+import AVFoundation
 
 
 class PhoneyUITests: XCTestCase {
@@ -15,8 +17,14 @@ class PhoneyUITests: XCTestCase {
     var token: NSObjectProtocol?
 
     //https://jeremywsherman.com/blog/2016/03/19/xctestexpectation-gotchas/#kaboom-calling-twice
+    // make expectations properties so that delegate methods can reference them
     weak var expectCallHasConnected: XCTestExpectation?
     weak var expectCallHasEnded: XCTestExpectation?
+    weak var expectSpeak: XCTestExpectation?
+
+    // making synthesizer a property fixed AVSpeechSynthesizerDelegate callbacks weren't getting called
+    // https://stackoverflow.com/questions/24093434/avspeechsynthesizer-works-on-simulator-but-not-on-device?rq=1
+    var synthesizer: AVSpeechSynthesizer?
 
     override func setUp() {
         super.setUp()
@@ -28,6 +36,8 @@ class PhoneyUITests: XCTestCase {
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
 
+        synthesizer = AVSpeechSynthesizer()
+        synthesizer?.delegate = self
     }
     
     override func tearDown() {
@@ -83,6 +93,43 @@ class PhoneyUITests: XCTestCase {
             }
         }
     }
+
+    /// testSpeak passes on simulator and on device.
+    /// But on device I can't hear anything!
+    func testSpeak() {
+        expectSpeak = self.expectation(description: "expect speak")
+        speak("other option")
+
+        waitForExpectations(timeout: 10) { (error) in
+            if let error = error {
+                XCTFail("expectation timed out with error: \(error)")
+            }
+        }
+    }
+
+    /// currently works on simulator but not on device
+    /// phone sound switch must be on, to avoid error
+    /// TTSPlaybackCreate unable to initialize dynamics: -3000
+    /// Failure starting audio queue alp!
+    /// https://forums.developer.apple.com/thread/87691
+    func speak(_ string: String) {
+
+        // for use if switching between voice synthesis and voice recognition
+        // https://forums.developer.apple.com/thread/88030
+        // https://stackoverflow.com/questions/40639660/swift-3-using-speech-recognition-and-avfoundation-together
+        // https://stackoverflow.com/questions/40270738/avspeechsynthesizer-does-not-speak-after-using-sfspeechrecognizer/43098873#43098873
+        //   let audioSession = AVAudioSession.sharedInstance()
+        //   do {
+        //       try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+        //       try audioSession.setActive(false, with: .notifyOthersOnDeactivation)
+        //   } catch {
+        //       print("failed")
+        //   }
+
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        synthesizer?.speak(utterance)
+    }
 }
 
 extension PhoneyUITests: CXCallObserverDelegate {
@@ -111,4 +158,18 @@ extension PhoneyUITests: CXCallObserverDelegate {
     }
 }
 
+extension PhoneyUITests: AVSpeechSynthesizerDelegate {
 
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        print("didStart utterance")
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        print("didFinish utterance")
+        if expectSpeak != nil {
+            expectSpeak?.fulfill()
+            // set nil to avoid error from calling multiple times
+            expectSpeak = nil
+        }
+    }
+}
