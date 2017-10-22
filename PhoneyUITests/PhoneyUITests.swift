@@ -43,8 +43,8 @@ class PhoneyUITests: XCTestCase {
         // let expectation = XCTestExpectation(description: "expect something")
         // instead instantiate via self.expectation
         // https://stackoverflow.com/questions/41145269/api-violation-when-using-waitforexpectations
-        self.expectCallHasConnected = self.expectation(description: "expect call hasConnected")
-        self.expectCallHasEnded = self.expectation(description: "expect call hasEnded")
+        expectCallHasConnected = self.expectation(description: "expect call hasConnected")
+        expectCallHasEnded = self.expectation(description: "expect call hasEnded")
 
         let callObserver = CXCallObserver()
         callObserver.setDelegate(self, queue: nil)
@@ -93,19 +93,19 @@ extension PhoneyUITests: CXCallObserverDelegate {
 
         if call.isOutgoing && call.hasConnected && !call.hasEnded {
             print("outgoing call hasConnected")
-            if self.expectCallHasConnected != nil {
-                self.expectCallHasConnected?.fulfill()
+            if expectCallHasConnected != nil {
+                expectCallHasConnected?.fulfill()
                 // set nil to avoid error from calling multiple times
                 // https://jeremywsherman.com/blog/2016/03/19/xctestexpectation-gotchas/#kaboom-calling-twice
-                self.expectCallHasConnected = nil
+                expectCallHasConnected = nil
             }
         }
         if call.isOutgoing && call.hasEnded {
             print("outgoing call hasEnded")
             if self.expectCallHasEnded != nil {
-                self.expectCallHasEnded?.fulfill()
+                expectCallHasEnded?.fulfill()
                 // set nil to avoid error from calling multiple times
-                self.expectCallHasEnded = nil
+                expectCallHasEnded = nil
             }
         }
     }
