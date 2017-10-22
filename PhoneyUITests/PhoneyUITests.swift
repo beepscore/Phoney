@@ -165,11 +165,8 @@ extension PhoneyUITests: CXCallObserverDelegate {
         // This callback comes from iOS.
         // It accurately represents that a phone call connected or ended.
 
-        if call.isOutgoing {
-            print("call isOutgoing")
-        }
-        if call.hasConnected {
-            print("call hasConnected")
+        if call.isOutgoing && call.hasConnected && !call.hasEnded {
+            print("outgoing call hasConnected")
             if self.expectCallHasConnected != nil {
                 self.expectCallHasConnected?.fulfill()
                 // set nil to avoid error from calling multiple times
@@ -177,8 +174,8 @@ extension PhoneyUITests: CXCallObserverDelegate {
                 self.expectCallHasConnected = nil
             }
         }
-        if call.hasEnded {
-            print("call hasEnded")
+        if call.isOutgoing && call.hasEnded {
+            print("outgoing call hasEnded")
             if self.token != nil {
                 removeUIInterruptionMonitor(self.token!)
             }
