@@ -96,16 +96,16 @@ class PhoneyUITests: XCTestCase {
 
     /// testSpeak passes on simulator and on device.
     /// But on device I can't hear anything!
-    func testSpeak() {
-        expectSpeak = self.expectation(description: "expect speak")
-        speak("other option")
-
-        waitForExpectations(timeout: 10) { (error) in
-            if let error = error {
-                XCTFail("expectation timed out with error: \(error)")
-            }
-        }
-    }
+//    func testSpeak() {
+//        expectSpeak = self.expectation(description: "expect speak")
+//        speak("other option")
+//
+//        waitForExpectations(timeout: 10) { (error) in
+//            if let error = error {
+//                XCTFail("expectation timed out with error: \(error)")
+//            }
+//        }
+//    }
 
     /// currently works on simulator but not on device
     /// I think the problem is due to the test running in background.
@@ -134,18 +134,18 @@ class PhoneyUITests: XCTestCase {
     }
 
     /// this works on simulator and device
-    func testSpeakTapped() {
-        let app = XCUIApplication()
-        app.launch()
-
-        let appSpeakButton = app.buttons["speak"]
-        if appSpeakButton.waitForExistence(timeout: 10) {
-            appSpeakButton.tap()
-            print("*** tapped appSpeakButton")
-            // wait for speech in Phoney.app to finish
-            sleep(4)
-        }
-    }
+//    func testSpeakTapped() {
+//        let app = XCUIApplication()
+//        app.launch()
+//
+//        let appSpeakButton = app.buttons["speak"]
+//        if appSpeakButton.waitForExistence(timeout: 10) {
+//            appSpeakButton.tap()
+//            print("*** tapped appSpeakButton")
+//            // wait for speech in Phoney.app to finish
+//            sleep(4)
+//        }
+//    }
 }
 
 extension PhoneyUITests: CXCallObserverDelegate {
