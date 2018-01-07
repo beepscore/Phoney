@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Phoney.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DE6359302002042500FB08A9"
+               BuildableName = "PhoneyUITests.xctest"
+               BlueprintName = "PhoneyUITests"
+               ReferencedContainer = "container:Phoney.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -33,17 +47,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DEA1B2A51F8F1C6B00F64C25"
-               BuildableName = "PhoneyTests.xctest"
-               BlueprintName = "PhoneyTests"
-               ReferencedContainer = "container:Phoney.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DEA1B2B01F8F1C6B00F64C25"
+               BlueprintIdentifier = "DE6359302002042500FB08A9"
                BuildableName = "PhoneyUITests.xctest"
                BlueprintName = "PhoneyUITests"
                ReferencedContainer = "container:Phoney.xcodeproj">

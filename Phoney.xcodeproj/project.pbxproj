@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE6359342002042500FB08A9 /* PhoneyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6359332002042500FB08A9 /* PhoneyUITests.swift */; };
 		DEA1B2961F8F1C6B00F64C25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1B2951F8F1C6B00F64C25 /* AppDelegate.swift */; };
 		DEA1B2981F8F1C6B00F64C25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1B2971F8F1C6B00F64C25 /* ViewController.swift */; };
 		DEA1B29B1F8F1C6B00F64C25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA1B2991F8F1C6B00F64C25 /* Main.storyboard */; };
 		DEA1B29D1F8F1C6B00F64C25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEA1B29C1F8F1C6B00F64C25 /* Assets.xcassets */; };
 		DEA1B2A01F8F1C6B00F64C25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEA1B29E1F8F1C6B00F64C25 /* LaunchScreen.storyboard */; };
 		DEA1B2AB1F8F1C6B00F64C25 /* PhoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1B2AA1F8F1C6B00F64C25 /* PhoneyTests.swift */; };
-		DEA1B2B61F8F1C6B00F64C25 /* PhoneyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA1B2B51F8F1C6B00F64C25 /* PhoneyUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DEA1B2A71F8F1C6B00F64C25 /* PBXContainerItemProxy */ = {
+		DE6359362002042500FB08A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DEA1B28A1F8F1C6B00F64C25 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DEA1B2911F8F1C6B00F64C25;
 			remoteInfo = Phoney;
 		};
-		DEA1B2B21F8F1C6B00F64C25 /* PBXContainerItemProxy */ = {
+		DEA1B2A71F8F1C6B00F64C25 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DEA1B28A1F8F1C6B00F64C25 /* Project object */;
 			proxyType = 1;
@@ -35,6 +35,9 @@
 
 /* Begin PBXFileReference section */
 		DE5D940B1F92E651008DFA4B /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		DE6359312002042500FB08A9 /* PhoneyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE6359332002042500FB08A9 /* PhoneyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneyUITests.swift; sourceTree = "<group>"; };
+		DE6359352002042500FB08A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE8C92911F8F1D6400A15288 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DEA1B2921F8F1C6B00F64C25 /* Phoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA1B2951F8F1C6B00F64C25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -46,12 +49,16 @@
 		DEA1B2A61F8F1C6B00F64C25 /* PhoneyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA1B2AA1F8F1C6B00F64C25 /* PhoneyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneyTests.swift; sourceTree = "<group>"; };
 		DEA1B2AC1F8F1C6B00F64C25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DEA1B2B11F8F1C6B00F64C25 /* PhoneyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DEA1B2B51F8F1C6B00F64C25 /* PhoneyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneyUITests.swift; sourceTree = "<group>"; };
-		DEA1B2B71F8F1C6B00F64C25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DE63592E2002042500FB08A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEA1B28F1F8F1C6B00F64C25 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,16 +73,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DEA1B2AE1F8F1C6B00F64C25 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE6359322002042500FB08A9 /* PhoneyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DE6359332002042500FB08A9 /* PhoneyUITests.swift */,
+				DE6359352002042500FB08A9 /* Info.plist */,
+			);
+			path = PhoneyUITests;
+			sourceTree = "<group>";
+		};
 		DEA1B2891F8F1C6B00F64C25 = {
 			isa = PBXGroup;
 			children = (
@@ -83,7 +92,7 @@
 				DE5D940B1F92E651008DFA4B /* LICENSE */,
 				DEA1B2941F8F1C6B00F64C25 /* Phoney */,
 				DEA1B2A91F8F1C6B00F64C25 /* PhoneyTests */,
-				DEA1B2B41F8F1C6B00F64C25 /* PhoneyUITests */,
+				DE6359322002042500FB08A9 /* PhoneyUITests */,
 				DEA1B2931F8F1C6B00F64C25 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -93,7 +102,7 @@
 			children = (
 				DEA1B2921F8F1C6B00F64C25 /* Phoney.app */,
 				DEA1B2A61F8F1C6B00F64C25 /* PhoneyTests.xctest */,
-				DEA1B2B11F8F1C6B00F64C25 /* PhoneyUITests.xctest */,
+				DE6359312002042500FB08A9 /* PhoneyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -120,18 +129,27 @@
 			path = PhoneyTests;
 			sourceTree = "<group>";
 		};
-		DEA1B2B41F8F1C6B00F64C25 /* PhoneyUITests */ = {
-			isa = PBXGroup;
-			children = (
-				DEA1B2B51F8F1C6B00F64C25 /* PhoneyUITests.swift */,
-				DEA1B2B71F8F1C6B00F64C25 /* Info.plist */,
-			);
-			path = PhoneyUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DE6359302002042500FB08A9 /* PhoneyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE6359382002042500FB08A9 /* Build configuration list for PBXNativeTarget "PhoneyUITests" */;
+			buildPhases = (
+				DE63592D2002042500FB08A9 /* Sources */,
+				DE63592E2002042500FB08A9 /* Frameworks */,
+				DE63592F2002042500FB08A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE6359372002042500FB08A9 /* PBXTargetDependency */,
+			);
+			name = PhoneyUITests;
+			productName = PhoneyUITests;
+			productReference = DE6359312002042500FB08A9 /* PhoneyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		DEA1B2911F8F1C6B00F64C25 /* Phoney */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEA1B2BA1F8F1C6B00F64C25 /* Build configuration list for PBXNativeTarget "Phoney" */;
@@ -167,44 +185,26 @@
 			productReference = DEA1B2A61F8F1C6B00F64C25 /* PhoneyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		DEA1B2B01F8F1C6B00F64C25 /* PhoneyUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DEA1B2C01F8F1C6B00F64C25 /* Build configuration list for PBXNativeTarget "PhoneyUITests" */;
-			buildPhases = (
-				DEA1B2AD1F8F1C6B00F64C25 /* Sources */,
-				DEA1B2AE1F8F1C6B00F64C25 /* Frameworks */,
-				DEA1B2AF1F8F1C6B00F64C25 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DEA1B2B31F8F1C6B00F64C25 /* PBXTargetDependency */,
-			);
-			name = PhoneyUITests;
-			productName = PhoneyUITests;
-			productReference = DEA1B2B11F8F1C6B00F64C25 /* PhoneyUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		DEA1B28A1F8F1C6B00F64C25 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Beepscore LLC";
 				TargetAttributes = {
+					DE6359302002042500FB08A9 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = DEA1B2911F8F1C6B00F64C25;
+					};
 					DEA1B2911F8F1C6B00F64C25 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 					};
 					DEA1B2A51F8F1C6B00F64C25 = {
-						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Automatic;
-						TestTargetID = DEA1B2911F8F1C6B00F64C25;
-					};
-					DEA1B2B01F8F1C6B00F64C25 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 						TestTargetID = DEA1B2911F8F1C6B00F64C25;
@@ -226,12 +226,19 @@
 			targets = (
 				DEA1B2911F8F1C6B00F64C25 /* Phoney */,
 				DEA1B2A51F8F1C6B00F64C25 /* PhoneyTests */,
-				DEA1B2B01F8F1C6B00F64C25 /* PhoneyUITests */,
+				DE6359302002042500FB08A9 /* PhoneyUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DE63592F2002042500FB08A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEA1B2901F8F1C6B00F64C25 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -249,16 +256,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DEA1B2AF1F8F1C6B00F64C25 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DE63592D2002042500FB08A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE6359342002042500FB08A9 /* PhoneyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEA1B28E1F8F1C6B00F64C25 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -276,26 +284,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DEA1B2AD1F8F1C6B00F64C25 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DEA1B2B61F8F1C6B00F64C25 /* PhoneyUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DE6359372002042500FB08A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEA1B2911F8F1C6B00F64C25 /* Phoney */;
+			targetProxy = DE6359362002042500FB08A9 /* PBXContainerItemProxy */;
+		};
 		DEA1B2A81F8F1C6B00F64C25 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DEA1B2911F8F1C6B00F64C25 /* Phoney */;
 			targetProxy = DEA1B2A71F8F1C6B00F64C25 /* PBXContainerItemProxy */;
-		};
-		DEA1B2B31F8F1C6B00F64C25 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DEA1B2911F8F1C6B00F64C25 /* Phoney */;
-			targetProxy = DEA1B2B21F8F1C6B00F64C25 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -319,6 +319,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DE6359392002042500FB08A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J2LXK9FK3W;
+				INFOPLIST_FILE = PhoneyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.beepscore.PhoneyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Phoney;
+			};
+			name = Debug;
+		};
+		DE63593A2002042500FB08A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J2LXK9FK3W;
+				INFOPLIST_FILE = PhoneyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.beepscore.PhoneyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Phoney;
+			};
+			name = Release;
+		};
 		DEA1B2B81F8F1C6B00F64C25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -492,41 +522,18 @@
 			};
 			name = Release;
 		};
-		DEA1B2C11F8F1C6B00F64C25 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J2LXK9FK3W;
-				INFOPLIST_FILE = PhoneyUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.beepscore.PhoneyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Phoney;
-			};
-			name = Debug;
-		};
-		DEA1B2C21F8F1C6B00F64C25 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J2LXK9FK3W;
-				INFOPLIST_FILE = PhoneyUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.beepscore.PhoneyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Phoney;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DE6359382002042500FB08A9 /* Build configuration list for PBXNativeTarget "PhoneyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE6359392002042500FB08A9 /* Debug */,
+				DE63593A2002042500FB08A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DEA1B28D1F8F1C6B00F64C25 /* Build configuration list for PBXProject "Phoney" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -550,15 +557,6 @@
 			buildConfigurations = (
 				DEA1B2BE1F8F1C6B00F64C25 /* Debug */,
 				DEA1B2BF1F8F1C6B00F64C25 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DEA1B2C01F8F1C6B00F64C25 /* Build configuration list for PBXNativeTarget "PhoneyUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DEA1B2C11F8F1C6B00F64C25 /* Debug */,
-				DEA1B2C21F8F1C6B00F64C25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
