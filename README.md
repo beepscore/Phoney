@@ -57,3 +57,10 @@ deprecated
 https://developer.apple.com/documentation/coretelephony/ctcallcenter
 https://developer.apple.com/documentation/coretelephony/ctcall
 
+# Appendix Run tests on device
+Note UITests won't run on simulator. This is expected.
+UITests require device with phone hardware to find and tap springboard phone call buttons.
+
+## 2018-01-07
+To run unit UITests only (not unit tests), select scheme PhoneyUITests and type command-u.
+To run unit unit tests only (not UI tests), select scheme PhoneyTests and type command-u.
