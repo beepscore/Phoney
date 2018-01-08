@@ -14,8 +14,6 @@ import AVFoundation
 
 class PhoneyUITests: XCTestCase {
 
-    var token: NSObjectProtocol?
-
     //https://jeremywsherman.com/blog/2016/03/19/xctestexpectation-gotchas/#kaboom-calling-twice
     // make expectations properties so that delegate methods can reference them
     weak var expectCallHasConnected: XCTestExpectation?
