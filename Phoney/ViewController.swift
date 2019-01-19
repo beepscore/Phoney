@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     @IBAction func callTapped(_ sender: Any) {
         // https://stackoverflow.com/questions/27259824/calling-a-phone-number-in-swift
         if let phoneCallURL = URL(string: "tel://\(wellsFargoPhoneNumber)") {
-            UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
+            UIApplication.shared.open(phoneCallURL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }
     }
     
@@ -67,4 +67,9 @@ extension ViewController: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         print("didFinish utterance")
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
